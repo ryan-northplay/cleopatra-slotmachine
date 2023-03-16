@@ -1,0 +1,496 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://UI.gd" type="Script" id=1]
+[ext_resource path="res://Assets/SlotsGameUI/cleopatra-demo.png" type="Texture" id=2]
+[ext_resource path="res://Assets/SlotsGameUI/ui_board.png" type="Texture" id=3]
+[ext_resource path="res://SlotMachineWindow1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://shaders/blur.shader" type="Shader" id=5]
+[ext_resource path="res://Assets/SlotsGameUI/mask.png" type="Texture" id=6]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/payments_table.png" type="Texture" id=7]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/f_payments_table.png" type="Texture" id=8]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/lines.png" type="Texture" id=9]
+[ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=10]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/betperline.png" type="Texture" id=11]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/minus.png" type="Texture" id=12]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/_minus.png" type="Texture" id=13]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/plus.png" type="Texture" id=14]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/_plus.png" type="Texture" id=15]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/coins.png" type="Texture" id=16]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/bet.png" type="Texture" id=17]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/spin.png" type="Texture" id=18]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/f_spin.png" type="Texture" id=19]
+[ext_resource path="res://Assets/SlotsGameUI/buttons/_spin.png" type="Texture" id=20]
+[ext_resource path="res://Fonts/GADUGIB.TTF" type="DynamicFontData" id=21]
+[ext_resource path="res://Assets/Sounds/ButtonClick-Reources-216.wav" type="AudioStream" id=22]
+
+[sub_resource type="Animation" id=1]
+resource_name = "logo_entry"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 205, -200 ), Vector2( 205, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "logo_out"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1.8025, 0.5 ),
+"update": 0,
+"values": [ Vector2( 205, 0 ), Vector2( 205, -200 ) ]
+}
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform float lod: hint_range(0, 5);
+
+void fragment() {
+	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, lod).rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/lod = 1.039
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 5 )
+shader_param/lod = 0.65
+
+[sub_resource type="DynamicFontData" id=6]
+hinting = 0
+font_path = "res://Fonts/KELSON SANS REGULAR.OTF"
+
+[sub_resource type="DynamicFont" id=7]
+size = 27
+use_filter = true
+font_data = SubResource( 6 )
+
+[sub_resource type="Animation" id=8]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.1, 0.5, 1, 1.5, 2, 2.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=9]
+size = 30
+use_filter = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 80
+use_filter = true
+font_data = ExtResource( 21 )
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 400, 0 )
+script = ExtResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 120.0
+margin_right = 275.0
+margin_bottom = 437.0
+rect_scale = Vector2( 0.575069, 0.575069 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 975.0
+margin_bottom = 1037.0
+
+[node name="VBoxContainerCenter" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 975.0
+margin_bottom = 1037.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Logo" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter"]
+light_mask = 2
+margin_left = 205.0
+margin_right = 768.74
+margin_bottom = 195.0
+rect_min_size = Vector2( 563.74, 195 )
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/Logo"]
+anims/logo_entry = SubResource( 1 )
+anims/logo_out = SubResource( 2 )
+
+[node name="Board" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter"]
+margin_top = 199.0
+margin_right = 975.0
+margin_bottom = 779.0
+rect_min_size = Vector2( 975, 580 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 3 )
+expand = true
+
+[node name="SlotMachineWindow1" parent="MarginContainer/HBoxContainer/VBoxContainerCenter" instance=ExtResource( 4 )]
+material = SubResource( 4 )
+position = Vector2( 112, 482.261 )
+scale = Vector2( 0.349365, 0.349365 )
+
+[node name="SlotMachineWindow2" parent="MarginContainer/HBoxContainer/VBoxContainerCenter" instance=ExtResource( 4 )]
+material = SubResource( 4 )
+position = Vector2( 299.5, 482.261 )
+scale = Vector2( 0.349365, 0.349365 )
+
+[node name="SlotMachineWindow3" parent="MarginContainer/HBoxContainer/VBoxContainerCenter" instance=ExtResource( 4 )]
+material = SubResource( 4 )
+position = Vector2( 487.5, 482.261 )
+scale = Vector2( 0.349365, 0.349365 )
+
+[node name="SlotMachineWindow4" parent="MarginContainer/HBoxContainer/VBoxContainerCenter" instance=ExtResource( 4 )]
+material = SubResource( 4 )
+position = Vector2( 675.416, 482.261 )
+scale = Vector2( 0.349365, 0.349365 )
+
+[node name="SlotMachineWindow5" parent="MarginContainer/HBoxContainer/VBoxContainerCenter" instance=ExtResource( 4 )]
+material = SubResource( 4 )
+position = Vector2( 864.611, 482.261 )
+scale = Vector2( 0.349365, 0.349365 )
+
+[node name="BlurReel1" type="ColorRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/SlotMachineWindow5" groups=[
+"vfx",
+]]
+visible = false
+material = SubResource( 5 )
+margin_left = -2406.0
+margin_top = -751.0
+margin_right = -1900.0
+margin_bottom = 804.0
+
+[node name="BlurReel2" type="ColorRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/SlotMachineWindow5" groups=[
+"vfx",
+]]
+visible = false
+material = SubResource( 5 )
+margin_left = -1872.0
+margin_top = -751.0
+margin_right = -1363.0
+margin_bottom = 804.0
+
+[node name="BlurReel3" type="ColorRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/SlotMachineWindow5" groups=[
+"vfx",
+]]
+visible = false
+material = SubResource( 5 )
+margin_left = -1335.0
+margin_top = -751.0
+margin_right = -826.0
+margin_bottom = 804.0
+
+[node name="BlurReel4" type="ColorRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/SlotMachineWindow5" groups=[
+"vfx",
+]]
+visible = false
+material = SubResource( 5 )
+margin_left = -795.0
+margin_top = -751.0
+margin_right = -286.0
+margin_bottom = 804.0
+
+[node name="BlurReel5" type="ColorRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/SlotMachineWindow5" groups=[
+"vfx",
+]]
+visible = false
+material = SubResource( 5 )
+margin_left = -255.0
+margin_top = -751.0
+margin_right = 256.0
+margin_bottom = 804.0
+
+[node name="TopMask" type="Light2D" parent="MarginContainer/HBoxContainer/VBoxContainerCenter"]
+position = Vector2( 486.898, -73.0347 )
+texture = ExtResource( 6 )
+mode = 3
+
+[node name="BotMask" type="Light2D" parent="MarginContainer/HBoxContainer/VBoxContainerCenter"]
+position = Vector2( 486.898, 1056.77 )
+scale = Vector2( 1, 1.00168 )
+texture = ExtResource( 6 )
+mode = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainerCenter"]
+modulate = Color( 5.8, 4, 1.74118, 0.819608 )
+light_mask = 2
+margin_top = 783.0
+margin_right = 975.0
+margin_bottom = 833.0
+rect_min_size = Vector2( 0, 50 )
+rect_clip_content = true
+
+[node name="Message1" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/Panel"]
+visible = false
+light_mask = 2
+margin_top = 4.0
+margin_right = 975.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 7 )
+align = 1
+valign = 1
+
+[node name="Message2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/Panel"]
+visible = false
+light_mask = 2
+margin_top = 4.0
+margin_right = 974.0
+margin_bottom = 50.0
+rect_scale = Vector2( 1.13333, 1.13333 )
+rect_pivot_offset = Vector2( 486.898, 23.0001 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 7 )
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/Panel/Message2"]
+anims/Earnings = SubResource( 8 )
+
+[node name="Message3" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/Panel"]
+visible = false
+light_mask = 2
+margin_top = 4.0
+margin_right = 979.0
+margin_bottom = 50.0
+rect_clip_content = true
+custom_fonts/font = SubResource( 7 )
+text = "Fondos insuficientes. Realice una nueva carga."
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainerCenter"]
+light_mask = 2
+margin_top = 837.0
+margin_right = 975.0
+margin_bottom = 1037.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer"]
+visible = false
+margin_right = 192.0
+margin_bottom = 200.0
+alignment = 1
+
+[node name="TextureButton2" type="TextureButton" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/VBoxContainer2"]
+light_mask = 2
+margin_top = 45.0
+margin_right = 192.0
+margin_bottom = 155.0
+rect_min_size = Vector2( 192, 110 )
+texture_normal = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
+expand = true
+stretch_mode = 4
+
+[node name="LBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer"]
+margin_right = 295.0
+margin_bottom = 200.0
+alignment = 1
+
+[node name="Lines" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/LBoxContainer"]
+light_mask = 2
+margin_top = 18.0
+margin_right = 295.0
+margin_bottom = 98.0
+rect_min_size = Vector2( 295, 80 )
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="Líneas" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/LBoxContainer/Lines"]
+light_mask = 2
+margin_left = 100.0
+margin_top = 27.0
+margin_right = 292.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 0.396078, 0.239216, 0.188235, 1 )
+align = 1
+valign = 1
+
+[node name="BetLine" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/LBoxContainer"]
+light_mask = 2
+margin_top = 102.0
+margin_right = 295.0
+margin_bottom = 182.0
+rect_min_size = Vector2( 0, 80 )
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+
+[node name="BetLínea" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/LBoxContainer/BetLine"]
+light_mask = 2
+margin_left = 186.594
+margin_top = 27.0
+margin_right = 245.594
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 0.396078, 0.239216, 0.188235, 1 )
+align = 1
+valign = 1
+
+[node name="Minus" type="TextureButton" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/LBoxContainer/BetLine"]
+light_mask = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 152.261
+margin_top = 26.0
+margin_right = -99.7389
+margin_bottom = -16.0
+rect_min_size = Vector2( 42.7, 0 )
+texture_normal = ExtResource( 12 )
+texture_disabled = ExtResource( 13 )
+expand = true
+stretch_mode = 5
+
+[node name="Plus" type="TextureButton" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/LBoxContainer/BetLine"]
+light_mask = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 239.207
+margin_top = 26.0
+margin_right = -12.7931
+margin_bottom = -16.0
+rect_min_size = Vector2( 42.7, 0 )
+texture_normal = ExtResource( 14 )
+texture_disabled = ExtResource( 15 )
+expand = true
+stretch_mode = 5
+
+[node name="LSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer"]
+margin_left = 299.0
+margin_right = 319.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer"]
+margin_left = 323.0
+margin_right = 618.0
+margin_bottom = 200.0
+alignment = 1
+
+[node name="Coins" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/VBoxContainer"]
+light_mask = 2
+margin_top = 18.0
+margin_right = 295.0
+margin_bottom = 98.0
+rect_min_size = Vector2( 0, 80 )
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="Saldo" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/VBoxContainer/Coins"]
+light_mask = 2
+margin_left = 100.0
+margin_top = 27.0
+margin_right = 292.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 0.396078, 0.239216, 0.188235, 1 )
+align = 1
+valign = 1
+
+[node name="Bet" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/VBoxContainer"]
+light_mask = 2
+margin_top = 102.0
+margin_right = 295.0
+margin_bottom = 182.0
+rect_min_size = Vector2( 295, 80 )
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 6
+
+[node name="Apuesta" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer/VBoxContainer/Bet"]
+light_mask = 2
+margin_left = 100.0
+margin_top = 27.0
+margin_right = 292.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 0.396078, 0.239216, 0.188235, 1 )
+align = 1
+valign = 1
+
+[node name="RSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer"]
+margin_left = 622.0
+margin_right = 772.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 150, 0 )
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/HBoxContainer/VBoxContainerCenter/HBoxContainer"]
+light_mask = 2
+margin_left = 776.0
+margin_right = 951.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 175, 200 )
+texture_normal = ExtResource( 18 )
+texture_hover = ExtResource( 19 )
+texture_disabled = ExtResource( 20 )
+expand = true
+stretch_mode = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 200.0
+margin_bottom = 46.0
+rect_scale = Vector2( 0.799392, 0.799392 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+margin_right = 1000.0
+margin_bottom = 646.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer"]
+margin_right = 1000.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="FreeSpins2" type="Label" parent="MarginContainer2/VBoxContainer"]
+margin_top = 34.0
+margin_right = 1000.0
+margin_bottom = 142.0
+custom_fonts/font = SubResource( 10 )
+align = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer2"]
+margin_right = 1000.0
+margin_bottom = 646.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer2"]
+margin_right = 1000.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+volume_db = -5.0

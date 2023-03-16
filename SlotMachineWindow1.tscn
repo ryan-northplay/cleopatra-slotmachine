@@ -1,0 +1,103 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://SlotMachineWindow1.gd" type="Script" id=1]
+[ext_resource path="res://Assets/SlotsGameUI/icons/Bonus_Reel_Symbol_TE-Reources-19.png" type="Texture" id=2]
+[ext_resource path="res://Assets/SlotsGameUI/icons/Bonus_Reel_Symbol_JA-Reources-43.png" type="Texture" id=3]
+[ext_resource path="res://Assets/SlotsGameUI/icons/Bonus_Reel_Symbol_QU-Reources-80.png" type="Texture" id=4]
+[ext_resource path="res://Assets/SlotsGameUI/icons/Bonus_Reel_Symbol_KI-Reources-89.png" type="Texture" id=5]
+[ext_resource path="res://Assets/SlotsGameUI/icons/Bonus_Reel_Symbol_AC-Reources-62.png" type="Texture" id=6]
+[ext_resource path="res://Assets/SlotsGameUI/icons/Bonus_Reel_Symbol_M3-Reources-17.png" type="Texture" id=7]
+[ext_resource path="res://Assets/SlotsGameUI/icons/Bonus_Reel_Symbol_M2-Reources-31.png" type="Texture" id=8]
+[ext_resource path="res://Assets/SlotsGameUI/icons/Bonus_Reel_Symbol_M1-Reources-45.png" type="Texture" id=9]
+[ext_resource path="res://Assets/SlotsGameUI/icons/Bonus_Reel_Symbol_CL-Reources-53.png" type="Texture" id=10]
+[ext_resource path="res://Assets/SlotsGameUI/icons/Bonus_Win_Anim_CL.ogv" type="VideoStream" id=11]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": false,
+"name": "Slot1",
+"speed": 0.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=2]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "Slot2",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "Slot3",
+"speed": 0.0
+} ]
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "Slot4",
+"speed": 0.0
+} ]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "Slot5",
+"speed": 0.0
+} ]
+
+[node name="SlotMachineWindow1" type="Node2D"]
+scale = Vector2( 0.195341, 0.195341 )
+script = ExtResource( 1 )
+
+[node name="ReelContainer" type="Node2D" parent="."]
+
+[node name="Tile001" type="AnimatedSprite" parent="ReelContainer"]
+scale = Vector2( 2, 2 )
+frames = SubResource( 1 )
+animation = "Slot1"
+
+[node name="Cleo II DEMO" type="VideoPlayer" parent="ReelContainer/Tile001" groups=[
+"anim",
+]]
+visible = false
+material = SubResource( 2 )
+margin_left = -128.0
+margin_top = -128.0
+margin_right = 128.0
+margin_bottom = 128.0
+stream = ExtResource( 11 )
+volume_db = -80.0
+buffering_msec = 10
+
+[node name="Tile002" type="AnimatedSprite" parent="ReelContainer"]
+scale = Vector2( 2, 2 )
+frames = SubResource( 3 )
+animation = "Slot2"
+
+[node name="Tile003" type="AnimatedSprite" parent="ReelContainer"]
+scale = Vector2( 2, 2 )
+frames = SubResource( 4 )
+animation = "Slot3"
+
+[node name="Tile004" type="AnimatedSprite" parent="ReelContainer"]
+scale = Vector2( 2, 2 )
+frames = SubResource( 5 )
+animation = "Slot4"
+
+[node name="Tile005" type="AnimatedSprite" parent="ReelContainer"]
+scale = Vector2( 2, 2 )
+frames = SubResource( 6 )
+animation = "Slot5"
+
+[node name="Center" type="Node2D" parent="."]
+
+[node name="Tween" type="Tween" parent="."]

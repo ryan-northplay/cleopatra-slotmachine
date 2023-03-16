@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ReelSpinning-Reources-176.wav-4110a66975a8f8881a99dc96504ed85b.sample"
+
+[deps]
+
+source_file="res://Assets/Music/ReelSpinning-Reources-176.wav"
+dest_files=[ "res://.import/ReelSpinning-Reources-176.wav-4110a66975a8f8881a99dc96504ed85b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

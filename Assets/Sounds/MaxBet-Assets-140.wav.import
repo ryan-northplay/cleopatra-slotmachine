@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/MaxBet-Assets-140.wav-97ee90b9b5897947fea1f94c233439bd.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/MaxBet-Assets-140.wav"
+dest_files=[ "res://.import/MaxBet-Assets-140.wav-97ee90b9b5897947fea1f94c233439bd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

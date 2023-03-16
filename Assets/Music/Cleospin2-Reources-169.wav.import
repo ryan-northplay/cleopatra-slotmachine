@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Cleospin2-Reources-169.wav-36467bd1040cb0f3350b25bfe2a6e2fb.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Cleospin2-Reources-169.wav"
+dest_files=[ "res://.import/Cleospin2-Reources-169.wav-36467bd1040cb0f3350b25bfe2a6e2fb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
